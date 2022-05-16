@@ -5,7 +5,12 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+path ="src/lib.rs"
+name ="mylib"
+
 [dependencies]
 actix-web = "4"
 tokio = { version = "1", features = ["full"] }
 mongodb = "2.2.0"
+serde = { version = "1.0", features = ["derive"] }

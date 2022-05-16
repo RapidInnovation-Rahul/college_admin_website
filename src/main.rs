@@ -1,17 +1,16 @@
-use actix_web::{App, HttpServer};
-use tokio;
-mod admin_login;
-use admin_login::{admin};
+use mylib::*;
 mod database;
-use database::{database};
+use database::{connect_database};
 
 #[tokio::main]
 async fn main()-> std::io::Result<()>{
-    let _db = database();
+    let db = connect_database().await;
+    println!("database name: {}", db.name());
     HttpServer::new(move||{
+        
         App::new()
-        // .app_data(db.clone())
-        .service(admin)
+            .app_data(db.clone())
+            .service(admin)
     })
     .bind("127.0.0.1:8080")?
     .run()
