@@ -3,7 +3,8 @@ use std::env;
 
 pub async fn connect_database() -> Database{
     // Load the MongoDB connection string from an environment variable:
-   let client_uri: String = env::var("MONGODB_URI").expect("You must set the MONGODB_URI environment var!");
+    dotenv().ok();
+   let client_uri: String = env::var("MONGODB_URI").unwrap();
    println!(" connecting to the database with URL: {}", client_uri);
    // 1. connecting to the database
     let mut _client_options = ClientOptions::parse_with_resolver_config(&client_uri, ResolverConfig::cloudflare()).await.expect("failed to connect to the database!!!");
@@ -16,17 +17,28 @@ pub async fn connect_database() -> Database{
     let _db = client.database("College_Admin_Website");
     
     // 4. Get handle to the collection
-    let _user_admin = _db.collection::<Document>("admin_details");
+    // let student_collection = _db.collection::<Student>("student_details");
 
     
     // 5. Insert at least one data to create the DataSet and Collection
-    let docs = 
-        doc!{
-            "username" : "admin1",
-            "password" : "admin1@password",
-        };
-    
-    _user_admin.insert_one(docs, None).await.expect("failed to insert data in collections");
+    // let st = vec![
+        // Student{
+        //     student_name : "Ankita kumari".to_string(),
+        //     student_roll : 69,
+        //     student_dept : Dept::CHEMICAL,
+        //     student_fees_clearance : true,
+        //     student_library_clearance : false,
+        // },
+    //     Student{
+    //         student_name : "Faizal".to_string(),
+    //         student_roll : 12,
+    //         student_dept : Dept::ELECTRICAL,
+    //         student_fees_clearance : false,
+    //         student_library_clearance : true,
+    //     },
+
+    // ];
+    // student_collection.insert_many(st, None).await.expect("failed to insert data in collections");
 
     return _db;
 }

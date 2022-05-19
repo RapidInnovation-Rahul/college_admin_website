@@ -8,4 +8,9 @@ pub use mongodb::bson::{doc,Document};
 pub use serde::{Serialize, Deserialize};
 
 pub mod data_types;
-pub use data_types::{Admin};
+pub use data_types::{Admin, Student, Dept};
+
+pub extern crate dotenv;
+pub use dotenv::dotenv;
+// use futures::stream::TryStreamExt ;
+// use mongodb::{options::FindOneOptions};
